@@ -46,7 +46,7 @@ function rollDigit(dice, category) {
 }
 
 function rollFourKind(dice) {
-  const groups = rollGroupings(dice)
+  const groups = diceGroupings(dice)
   const key = Object.keys(groups).find(roll => groups[roll] >= 4)
 
   if (key) {
@@ -68,7 +68,7 @@ function rollStraight(dice, category) {
 }
 
 function rollFullHouse(dice) {
-  const groups = rollGroupings(dice)
+  const groups = diceGroupings(dice)
   const counts = Object.values(groups)
 
   if (counts.includes(2) && counts.includes(3)) {
@@ -86,7 +86,7 @@ function sum(scores) {
   return scores.reduce((previous, current) => previous + current, 0)
 }
 
-function rollGroupings(dice) {
+function diceGroupings(dice) {
   const groups = {}
 
   dice.forEach(roll => {
