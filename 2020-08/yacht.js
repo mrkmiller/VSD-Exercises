@@ -16,9 +16,9 @@ const categoryMap = {
 
 export const score = (dice, category) => {
   const roller = categoryMap[category]
+  //Ex.  return rollYacht(dice, category)
+  //Ex2. return rollDigit(dice, category)
   return roller(dice, category)
-  //Ex.  return rollYacht(dice)
-  //Ex2. return rollDigit(dice)
 };
 
 function rollYacht(dice) {
@@ -26,9 +26,9 @@ function rollYacht(dice) {
 
   if (diceSet.size == 1) {
     return 50 
-  } else {
-    return 0
   }
+
+  return 0
 }
 
 function rollDigit(dice, category) {
@@ -47,7 +47,7 @@ function rollDigit(dice, category) {
 
 function rollFourKind(dice) {
   const groups = rollGroupings(dice)
-  const key = Object.keys(groups).find(key => groups[key] >= 4)
+  const key = Object.keys(groups).find(roll => groups[roll] >= 4)
 
   if (key) {
     return key * 4
@@ -57,8 +57,8 @@ function rollFourKind(dice) {
 }
 
 function rollStraight(dice, category) {
-  const straight = (category === 'little straight') ? '1,2,3,4,5' : '2,3,4,5,6'
-  const sorted = dice.sort().join();
+  const straight = (category === 'little straight') ? '12345' : '23456'
+  const sorted = dice.sort().join('');
 
   if (sorted === straight) {
     return 30
@@ -83,17 +83,15 @@ function rollChoice(dice) {
 }
 
 function sum(scores) {
-  return scores.reduce((previous, current) => {
-    return previous + current
-  }, 0)
+  return scores.reduce((previous, current) => previous + current, 0)
 }
 
 function rollGroupings(dice) {
   const groups = {}
 
-  dice.forEach(current => {
-    let previous = groups[current] ? groups[current] : 0
-    groups[current] = ++previous
+  dice.forEach(roll => {
+    let previous = groups[roll] || 0
+    groups[roll] = ++previous
   })
 
   return groups
